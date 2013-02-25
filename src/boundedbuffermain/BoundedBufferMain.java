@@ -17,6 +17,6 @@ public class BoundedBufferMain {
         
        BoundedBuffer b = new BoundedBuffer(5);
        producer p = new producer(10, b);
-       
+       consumer c = new consumer(b);
     }
 }
