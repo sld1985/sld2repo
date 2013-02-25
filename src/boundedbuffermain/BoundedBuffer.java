@@ -15,8 +15,8 @@ public class BoundedBuffer {
 
     private int spaces;
     private Queue<Integer> que;
-    private Boolean full;
-    private int element;
+    private int removed;
+    private int buffersize;
 
     public BoundedBuffer(int spaces) throws IllegalArgumentException {
 
@@ -29,37 +29,44 @@ public class BoundedBuffer {
         return spaces;
     }
 
+    public boolean isEmpty() {
+        return (que.size() == 0);
+    }
+
     /**
      *
      * @return returns false per defaulte
      */
     public boolean isFull() {
-        if (que.size() == spaces) {
-            full = true;
-
-        }
-        return full;
+        return (que.size() == spaces);
     }
-/**
- * 
- * @param element er det vi putter ind i vores linkedList
- */
-    public void put(int element) throws InterruptedException {
-        while(isFull())
-                {
-                   wait();
+
+    /**
+     *
+     * @param element er det vi putter ind i vores linkedList
+     */
+    public synchronized void put(int element) throws InterruptedException {
+        while (isFull()) {
+            wait();
         }
         que.add(element);
+        notifyAll();
 
     }
+
     /**
-     * 
-     * @return  take tager et element fra linkedlist og fjerner det fra listen
+     *
+     * @return take tager et element fra linkedlist og fjerner det fra listen
      */
+    public synchronized int take() throws InterruptedException {
 
-    public int take() {
+        while (isEmpty()) {
+            wait();
+        }
+        removed = que.remove();
         notifyAll();
-        return que.remove();
 
+
+        return removed;
     }
 }
