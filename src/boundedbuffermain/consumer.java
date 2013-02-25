@@ -13,7 +13,7 @@ public class consumer {
     
     public consumer(BoundedBuffer b){
         
-        b.take();
+        System.out.println(b.take());
     }
     
     
