@@ -18,5 +18,6 @@ public class BoundedBufferMain {
        BoundedBuffer b = new BoundedBuffer(5);
        producer p = new producer(10, b);
         System.out.println("hey jeg bestemmer ikke");
+        System.out.println("hey jeg bestemmer ikke3");
     }
 }
