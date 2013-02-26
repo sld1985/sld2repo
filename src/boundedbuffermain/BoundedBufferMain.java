@@ -21,8 +21,11 @@ public class BoundedBufferMain {
        producer p = new producer(10, b);
        Thread pc = new Thread(p); 
        consumer c = new consumer(b, 10);
+       Consumer2 c2 = new Consumer2(b,10);
        Thread pc2 = new Thread(c);
+       Thread pc3 = new Thread(c2);
        pc.start();
        pc2.start();
+       pc3.start();
     }
 }

@@ -53,17 +53,23 @@ public class BoundedBuffer {
         notifyAll();
 
     }
+    boolean stop = false;
 
     /**
      *
      * @return take tager et element fra linkedlist og fjerner det fra listen
      */
     public synchronized int take() throws InterruptedException {
-
+        if (stop) {
+            return producer.STOP_VALUE;
+        }
         while (isEmpty()) {
             wait();
         }
         removed = que.remove();
+        if (removed == producer.STOP_VALUE) {
+            stop = true;
+        }
         notifyAll();
 
 
