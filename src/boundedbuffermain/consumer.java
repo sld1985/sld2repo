@@ -23,10 +23,15 @@ public class consumer implements Runnable {
     }
 
     public void run() {
-
-        for (int i = 0; i <= max; i++) {
+        while (true) {
             try {
-                System.out.println("jeg tager " + b.take() + " fra listen");
+                int element = b.take();
+
+                System.out.println("jeg tager " + element + " fra listen");
+                if (element == -3) {
+                    break;
+                }
+
             } catch (InterruptedException ex) {
                 Logger.getLogger(consumer.class.getName()).log(Level.SEVERE, null, ex);
             }

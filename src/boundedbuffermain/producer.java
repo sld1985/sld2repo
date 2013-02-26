@@ -15,11 +15,13 @@ public class producer implements Runnable {
 
     private int max;
     private BoundedBuffer b;
+    public static final int STOP_VALUE = -3;
 
     public producer(int max, BoundedBuffer b) throws InterruptedException {
         {
             this.max = max;
             this.b = b;
+     
 
         }
 
@@ -40,6 +42,10 @@ public class producer implements Runnable {
 
             System.out.println("jeg putter nummer " + i + " ind i din liste");
         }
-
+        try {
+            b.put(STOP_VALUE);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(producer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
